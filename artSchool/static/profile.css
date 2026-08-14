@@ -1,0 +1,175 @@
+.profile-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
+    gap: 1vw;
+    margin-top: 2vw;
+}
+.profile-info{
+    display: flex;
+    width: 70vw;
+    gap: 3vw;
+    justify-content: space-between;
+}
+.first-column, .second-column, .third-column{
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    font-size: 1.3rem;
+}
+.logout{
+    border: none;
+    border-radius: 0.5vw;
+    background-color: var(--beige);
+    font-size: 1.2rem;
+    font-family: 'Century Gothic';
+    padding: 0.5vw;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.logout:hover{
+    transform: scale(1.05);
+}
+
+.panel-container {
+    display: flex;
+    gap: 2vw;
+    width: 80vw;
+    padding: 2vw;
+    background: var(--white);
+    border-radius: 1vw;
+    margin: auto;
+}
+
+.panel-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    width: 15vw;
+    flex-shrink: 0;
+}
+
+.tab-btn {
+    padding: 1vw 1.5vw;
+    background: white;
+    border-radius: 0.5vw;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    text-align: left;
+    transition: all 0.3s ease;
+    font-family: 'Century Gothic';
+}
+
+.tab-btn:hover {
+    transform: scale(1.05);
+}
+
+.tab-btn.active {
+    background: var(--beige);
+    transform: translateX(0.5vw);
+}
+
+.tabs-content {
+    flex: 1;
+    background: white;
+    border-radius: 1vw;
+    overflow: hidden;
+}
+
+.tab-panel {
+    display: none;
+    padding: 2vw;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+/* ДЛЯ УЧЕНИКА */
+.marks-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+.mark{
+    display: flex;
+    align-items: center;
+    padding: 1vw;
+    justify-content: space-between;
+    border-radius: 1vw;
+    border: 0.2vw solid var(--beige);
+    font-size: 1.3rem;
+}
+
+.diploma-container{
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+}
+.diploma{
+    width: 15vw;
+    max-width: 15vw;
+}
+
+/* ДЛЯ УЧИТЕЛЯ */
+.students-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1vw;
+}
+.student{
+    display: flex;
+    align-items: center;
+    padding: 1vw;
+    justify-content: space-between;
+    border-radius: 1vw;
+    border: 0.2vw solid var(--beige);
+    font-size: 1.3rem;
+    width: 25vw;
+    max-width: 25vw;
+}
+
+.users-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+.user{
+    display: flex;
+    align-items: center;
+    padding: 1vw;
+    justify-content: space-between;
+    border-radius: 1vw;
+    border: 0.2vw solid var(--beige);
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.my-form{
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    row-gap: 1.5vw;
+}
+.form-group label{
+    margin-right: 1vw;
+}
+.form-group{
+    font-size: 1.3rem;
+}
+.form-input{
+    border: 0.2vw solid var(--beige);
+    border-radius: 0.5vw;
+    padding: 0.2vw 0.5vw;
+    min-width: 15vw;
+    font-family: 'Century Gothic';
+}
+.my-select{
+    border: 0.2vw solid var(--beige);
+    border-radius: 0.5vw;
+    padding: 0.2vw 0.5vw;
+    min-width: 15vw;
+    font-family: 'Century Gothic';
+}
+
+/* ДЛЯ АДМИНА */

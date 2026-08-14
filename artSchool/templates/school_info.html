@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'info.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="panel-container">
+        <div class="panel-tabs">
+            <button class="tab-btn active" data-tab="tab1">Основные сведения</button>
+            <button class="tab-btn" data-tab="tab2">Структура и органы управления ОО</button>
+            <button class="tab-btn" data-tab="tab3">Образование</button>
+            <button class="tab-btn" data-tab="tab4">Руководство</button>
+            <button class="tab-btn" data-tab="tab5">Педагогический состав</button>
+            <button class="tab-btn" data-tab="tab6">Материально-техническое обеспечение</button>
+            <button class="tab-btn" data-tab="tab7">Вакантные места</button>
+        </div>
+        <div class="tabs-content">
+            <div class="tab-panel active" id="tab1"><p>Содержимое появится позже.</p></div>
+            <div class="tab-panel" id="tab2"><p>Содержимое появится позже.</p></div>
+            <div class="tab-panel" id="tab3"><p>Содержимое появится позже.</p></div>
+            <div class="tab-panel" id="tab4"><p>Содержимое появится позже.</p></div>
+            <div class="tab-panel" id="tab5"><p>Содержимое появится позже.</p></div>
+            <div class="tab-panel" id="tab6"><p>Содержимое появится позже.</p></div>
+            <div class="tab-panel" id="tab7"><p>Содержимое появится позже.</p></div>
+        </div>
+    </div>
+</main>
+{% endblock %}

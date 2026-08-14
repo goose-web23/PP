@@ -1,0 +1,20 @@
+.new_photos{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 2vw;
+}
+.new_container{
+    padding: 2vw;
+}
+.new_container h2{
+    margin-bottom: 2vw;
+}
+.new_container p{
+    width: 70vw;
+}
+.new_photo{
+    width: 20vw;
+}
+.main p{
+    font-size: 1.5rem;
+}

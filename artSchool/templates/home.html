@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="promo">
+    <img class="promo-logo" src="{% static 'images/promo.svg' %}" alt="">
+    <div class="promo-content">
+        <h1>ДЕТСКАЯ ШКОЛА ИСКУССТВ с.Домна</h1>
+        <p>Добро пожаловать на сайт нашего учреждения! Раскройте творческий потенциал вашего ребенка в нашей детской школе искусств!</p>
+        <div class="promo-buttons">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile-page' %}" class="primary-btn my-btn">Личный кабинет</a>
+            {% else %}
+                <a href="{% url 'login-page' %}" class="primary-btn my-btn">Личный кабинет</a>
+            {% endif %}
+            <a class="secondary-btn my-btn">Контакты</a>
+        </div>
+    </div>
+</section>
+
+<main class="main">
+    <div class="news">
+        <h2>НОВОСТИ</h2>
+        <div class="news-wrapper">
+            <div class="new-card">
+                <img src="{% static 'images/phtoo.png' %}" alt="">
+                <div class="new-card-content">
+                    <h3>Ученики приняли участие в фестивале Степь</h3>
+                    <div class="new-detail">
+                        <p class="new-date">06.07.26</p>
+                        <p class="read-more">Читать далее</p>
+                    </div>
+                </div>
+            </div>
+            <div class="new-card">
+                <img src="{% static 'images/phtoo.png' %}" alt="">
+                <div class="new-card-content">
+                    <h3>Ученики приняли участие в фестивале Степь</h3>
+                    <div class="new-detail">
+                        <p class="new-date">06.07.26</p>
+                        <p class="read-more">Читать далее</p>
+                    </div>
+                </div>
+            </div>
+            <div class="new-card">
+                <img src="{% static 'images/phtoo.png' %}" alt="">
+                <div class="new-card-content">
+                    <h3>Ученики приняли участие в фестивале Степь</h3>
+                    <div class="new-detail">
+                        <p class="new-date">06.07.26</p>
+                        <p class="read-more">Читать далее</p>
+                    </div>
+                </div>
+            </div>
+            <div class="new-card">
+                <img src="{% static 'images/phtoo.png' %}" alt="">
+                <div class="new-card-content">
+                    <h3>Ученики приняли участие в фестивале Степь</h3>
+                    <div class="new-detail">
+                        <p class="new-date">06.07.26</p>
+                        <p class="read-more">Читать далее</p>
+                    </div>
+                </div>
+            </div>
+            <div class="new-card">
+                <img src="{% static 'images/phtoo.png' %}" alt="">
+                <div class="new-card-content">
+                    <h3>Ученики приняли участие в фестивале Степь</h3>
+                    <div class="new-detail">
+                        <p class="new-date">06.07.26</p>
+                        <p class="read-more">Читать далее</p>
+                    </div>
+                </div>
+            </div>
+            <div class="new-card">
+                <img src="{% static 'images/phtoo.png' %}" alt="">
+                <div class="new-card-content">
+                    <h3>Ученики приняли участие в фестивале Степь</h3>
+                    <div class="new-detail">
+                        <p class="new-date">06.07.26</p>
+                        <p class="read-more">Читать далее</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="secondary-btn my-btn" href="{% url 'news-list-page' %}">Смотреть больше</a>
+    </div>
+    
+    <div class="depart-container">
+        <h2>Музыкальное отделение</h2>
+        <div class="departments">
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/гитара.svg' %}" alt=""></div><p>Гитара</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/домра.svg' %}" alt=""></div><p>Домра</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/пианино.svg' %}" alt=""></div><p>Фортепиано</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/микро.svg' %}" alt=""></div><p>Вокал</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/баян.svg' %}" alt=""></div><p>Баян</p></div>
+        </div>
+    </div>
+
+    <div class="depart-container">
+        <h2>Художественное отделение</h2>
+        <div class="departments">
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/гитара.svg' %}" alt=""></div><p>Лепка</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/домра.svg' %}" alt=""></div><p>Скульптура</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/пианино.svg' %}" alt=""></div><p>Живопись</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/микро.svg' %}" alt=""></div><p>ДПИ</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/баян.svg' %}" alt=""></div><p>Композиция</p></div>
+        </div>
+    </div>
+
+    <div class="faq-container">
+        <h2>ЧАСТЫЕ ВОПРОСЫ</h2>
+        <div class="faq-item">
+            <div class="faq-question"><h3>Как сделать заказ?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
+            <div class="faq-answer"><p>Для оформления заказа перейдите в каталог, выберите товар и нажмите кнопку "Купить".</p></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><h3>Какие способы оплаты доступны?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
+            <div class="faq-answer"><p>Мы принимаем оплату банковскими картами, электронными кошельками и наличными при получении.</p></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question"><h3>Как долго длится доставка?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
+            <div class="faq-answer"><p>Срок доставки составляет от 2 до 5 рабочих дней в зависимости от вашего региона.</p></div>
+        </div>
+    </div>
+</main>
+{% endblock %}

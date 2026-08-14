@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="main">
+    <div class="profile-wrapper">
+        <h2>Вход в личный кабинет</h2>
+        <form method="post" class="my-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Логин</label>
+                <input type="text" id="username" name="username" class="form-input" required minlength="3">
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" class="form-input" required minlength="6">
+            </div>
+            <button class="my-btn form-button" type="submit">Войти</button>
+        </form>
+    </div>
+</main>
+
+{% if error %}
+<script>alert("{{ error|escapejs }}");</script>
+{% endif %}
+{% endblock %}
+

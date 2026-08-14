@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'notes.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="headline">
+        <h2>БИБЛИОТЕКА НОТ</h2>
+        <form method="get">
+            <div class="filters">
+                <div class="filter">
+                    <label for="depart">Отделение</label>
+                    <select id="depart" name="department" onchange="this.form.submit()">
+                        <option value="">Все</option>
+                        <option value="piano" {% if selected_department == 'piano' %}selected{% endif %}>Фортепиано</option>
+                        <option value="guitar" {% if selected_department == 'guitar' %}selected{% endif %}>Гитара</option>
+                        <option value="vocal" {% if selected_department == 'vocal' %}selected{% endif %}>Вокальное</option>
+                        <option value="accordion" {% if selected_department == 'accordion' %}selected{% endif %}>Баян</option>
+                        <option value="balalaika" {% if selected_department == 'balalaika' %}selected{% endif %}>Домра</option>
+                    </select>
+                </div>
+                <div class="filter">
+                    <label for="class">Класс</label>
+                    <select id="class" name="class_number" onchange="this.form.submit()">
+                        <option value="">Все</option>
+                        {% for c in classes %}
+                        <option value="{{ c }}" {% if selected_class == c|stringformat:"s" %}selected{% endif %}>{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <section class="note-cards">
+    {% for note in notes %}
+    <a href="{% url 'notes-detail-page' note.id %}" class="note-card">
+        <div class="name-author">
+            <h4>{{ note.heading }}</h4>
+        </div>
+        <div class="class-depart">
+            <p class="add-info">{{ note.class_number }} класс</p>
+            <p class="add-info">{{ note.get_department_display }}</p>
+        </div>
+    </a>
+    {% empty %}
+    <p>Ноты не найдены.</p>
+    {% endfor %}
+</section>
+
+    {% if notes.paginator.num_pages > 1 %}
+    <div class="pagination">
+        {% if notes.has_previous %}
+            <a href="?page={{ notes.previous_page_number }}&department={{ selected_department }}&class_number={{ selected_class }}">← Назад</a>
+        {% endif %}
+        {% for num in notes.paginator.page_range %}
+            {% if num == notes.number %}
+                <span class="current-page">{{ num }}</span>
+            {% else %}
+                <a href="?page={{ num }}&department={{ selected_department }}&class_number={{ selected_class }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if notes.has_next %}
+            <a href="?page={{ notes.next_page_number }}&department={{ selected_department }}&class_number={{ selected_class }}">Вперёд →</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</main>
+{% endblock %}

@@ -1,0 +1,428 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="profile-wrapper">
+        {% if user.role == 'student' %}
+            <h2>Профиль ученика</h2>
+            <div class="profile-info">
+                <div class="first-column">
+                    <p>Вы вошли как:<span class="username">{{ student.full_name }}</span></p>
+                    <a href="{% url 'logout-page' %}" class="logout">Выйти</a>
+                </div>
+                <div class="second-column">
+                    <p>Логин: {{ user.username }}</p>
+                    <p>Отделение: {{ student.get_department_display }}</p>
+                </div>
+                <div class="third-column">
+                    <p>Учитель: {{ teacher.full_name|default:"Не назначен" }}</p>
+                    <p>Класс: {{ student.class_number }}</p>
+                </div>
+            </div>
+
+            <div class="panel-container">
+                <div class="panel-tabs">
+                    <button class="tab-btn active" data-tab="tab1">Мои оценки</button>
+                    <button class="tab-btn" data-tab="tab2">Мои грамоты</button>
+                </div>
+                <div class="tabs-content">
+                    <div class="tab-panel active" id="tab1">
+                        <div class="marks-container">
+                            {% for exam in exam_results %}
+                            <div class="mark">
+                                <h3>{{ exam.heading }}</h3>
+                                <p>{{ exam.date }}</p>
+                                <p>Оценка ({{ exam.mark }})</p>
+                            </div>
+                            {% empty %}
+                            <p>Оценок пока нет.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-panel" id="tab2">
+                        <div class="diploma-container">
+                            {% for diploma in diplomas %}
+                            <a href="{{ diploma.file.url }}"><img class="diploma" src="{{ diploma.file.url }}" alt="Грамота"></a>
+                            {% empty %}
+                            <p>Грамот пока нет.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% elif user.role == 'teacher' %}
+            <h2>Профиль учителя</h2>
+            <div class="profile-info">
+                <div class="first-column">
+                    <p>Вы вошли как:<span class="username">{{ teacher.full_name }}</span></p>
+                    <a href="{% url 'logout-page' %}" class="logout">Выйти</a>
+                </div>
+                <div class="second-column">
+                    <p>Логин: {{ user.username }}</p>
+                    <p>Отделение: {{ teacher.get_department_display }}</p>
+                </div>
+            </div>
+
+            <div class="panel-container">
+                <div class="panel-tabs">
+                    <button class="tab-btn active" data-tab="tab1">Мои ученики</button>
+                    <button class="tab-btn" data-tab="tab2">Поставить оценку</button>
+                    <button class="tab-btn" data-tab="tab3">Добавить грамоту</button>
+                </div>
+                <div class="tabs-content">
+                    <div class="tab-panel active" id="tab1">
+                        <div class="students-container">
+                            {% for item in students_data %}
+                            <div class="student">
+                                <h3>{{ item.student.full_name }}</h3>
+                                <p>{{ item.student.get_department_display }}</p>
+                                
+                                <p><strong>Оценки:</strong></p>
+                                {% for exam in item.exams %}
+                                <p>
+                                    {{ exam.date }} — {{ exam.heading }} — {{ exam.mark }}
+                                    <form method="post" style="display:inline;" onsubmit="return confirm('Удалить оценку?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="form_type" value="delete_exam">
+                                        <input type="hidden" name="exam_id" value="{{ exam.id }}">
+                                        <button type="submit">🗑️</button>
+                                    </form>
+                                </p>
+                                {% empty %}
+                                <p>Оценок нет</p>
+                                {% endfor %}
+                                
+                                <p><strong>Грамоты:</strong></p>
+                                {% for diploma in item.diplomas %}
+                                <p>
+                                    <a href="{{ diploma.file.url }}">Грамота</a>
+                                    <form method="post" style="display:inline;" onsubmit="return confirm('Удалить грамоту?');">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="form_type" value="delete_diploma">
+                                        <input type="hidden" name="diploma_id" value="{{ diploma.id }}">
+                                        <button type="submit">🗑️</button>
+                                    </form>
+                                </p>
+                                {% empty %}
+                                <p>Грамот нет</p>
+                                {% endfor %}
+                            </div>
+                            {% empty %}
+                            <p>Учеников пока нет.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="tab2">
+                        <form method="post" class="my-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="exam">
+                            <div class="form-group">
+                                <label>Название зачёта</label>
+                                <input type="text" name="heading" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Дата</label>
+                                <input type="date" name="date" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Ученик</label>
+                                <select name="student" class="my-select" required>
+                                    <option value="">Выберите ученика</option>
+                                    {% for sid, sname in student_choices %}
+                                    <option value="{{ sid }}">{{ sname }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Оценка</label>
+                                <select name="mark" class="my-select" required>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <button class="my-btn form-button" type="submit">Поставить</button>
+                        </form>
+                    </div>
+
+                    <div class="tab-panel" id="tab3">
+                        <form method="post" class="my-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="diploma">
+                            <div class="form-group">
+                                <label>Ученик</label>
+                                <select name="student" class="my-select" required>
+                                    <option value="">Выберите ученика</option>
+                                    {% for sid, sname in student_choices %}
+                                    <option value="{{ sid }}">{{ sname }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Грамота</label>
+                                <input type="file" name="file" class="form-input" required>
+                            </div>
+                            <button class="my-btn form-button" type="submit">Добавить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        {% elif user.role == 'admin' %}
+            <h2>Профиль администратора</h2>
+            <div class="profile-info">
+                <div class="first-column">
+                    <p>Вы вошли как:<span class="username">{{ user.username }}</span></p>
+                    <a href="{% url 'logout-page' %}" class="logout">Выйти</a>
+                </div>
+                <div class="second-column">
+                    <p>Логин: {{ user.username }}</p>
+                    <p>Роль: Администратор</p>
+                </div>
+            </div>
+
+            <div class="panel-container">
+                <div class="panel-tabs">
+                    <button class="tab-btn active" data-tab="tab1">Пользователи</button>
+                    <button class="tab-btn" data-tab="tab2">Новости</button>
+                    <button class="tab-btn" data-tab="tab3">Ноты</button>
+                </div>
+                <div class="tabs-content">
+                    <div class="tab-panel active" id="tab1">
+                        <form method="post" class="my-form" id="user-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" id="form-type" value="create_user">
+                            <input type="hidden" name="user_id" id="user-id" value="">
+                            <div class="form-group">
+                                <label>Логин</label>
+                                <input type="text" name="username" id="username" class="form-input" required minlength="3">
+                            </div>
+                            <div class="form-group">
+                                <label>Пароль</label>
+                                <input type="password" name="password" id="password" class="form-input" required minlength="6">
+                            </div>
+                            <div class="form-group">
+                                <label>Роль</label>
+                                <select name="role" id="role" class="my-select" required>
+                                    <option value="">Выберите роль</option>
+                                    <option value="student">Ученик</option>
+                                    <option value="teacher">Учитель</option>
+                                    <option value="admin">Админ</option>
+                                </select>
+                            </div>
+                            <div id="profile-fields" style="display:none;">
+                                <div class="form-group">
+                                    <label>Полное имя</label>
+                                    <input type="text" name="full_name" id="full_name" class="form-input" required>
+                                </div>
+                                <div class="form-group" id="age-field">
+                                    <label>Возраст</label>
+                                    <input type="number" name="age" id="age" class="form-input" min="18">
+                                </div>
+                                <div class="form-group" id="experience-field">
+                                    <label>Стаж</label>
+                                    <input type="number" name="experience" id="experience" class="form-input" step="0.5">
+                                </div>
+                                <div class="form-group">
+                                    <label>Отделение</label>
+                                    <select name="department" id="department" class="my-select" required>
+                                        <option value="music">Музыкальное</option>
+                                        <option value="art">Художественное</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="class-field">
+                                    <label>Класс</label>
+                                    <select name="class_number" id="class_number" class="my-select" required>
+                                        <option value="">Выберите класс</option>
+                                        {% for c in classes %}
+                                        <option value="{{ c }}">{{ c }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group" id="teacher-field">
+                                    <label>Учитель</label>
+                                    <select name="teacher_id" id="teacher_id" class="my-select" required>
+                                        <option value="">Без учителя</option>
+                                        {% for t in teachers %}
+                                        <option value="{{ t.id }}">{{ t.full_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" onclick="submitForm('create_user')" class="my-btn form-button">Добавить</button>
+                            <button type="button" onclick="submitForm('update_user')" id="btn-save" class="my-btn form-button" style="display:none;">Сохранить</button>
+                            <button type="button" onclick="confirmDeleteUser()" id="btn-delete" class="my-btn form-button" style="display:none;">Удалить</button>
+                        </form>
+
+                        <div class="users-container">
+                            {% for u in users_list %}
+                            <div class="user">
+                                <h3>{{ u.username }}</h3>
+                                <p>{{ u.get_role_display }}</p>
+                                <button type="button" onclick="editUser(
+                                    '{{ u.id }}',
+                                    '{{ u.username }}',
+                                    '{{ u.role }}',
+                                    '{{ u.teacher_profile.full_name|default:'' }}',
+                                    '{{ u.student_profile.full_name|default:'' }}',
+                                    '{{ u.teacher_profile.age|default:'' }}',
+                                    '{{ u.teacher_profile.experience|default:'' }}',
+                                    '{{ u.teacher_profile.department|default:'' }}',
+                                    '{{ u.student_profile.department|default:'' }}',
+                                    '{{ u.student_profile.class_number|default:'' }}',
+                                    '{{ u.student_profile.teacher.id|default:'' }}'
+                                )">✏️</button>
+                            </div>
+                            {% empty %}
+                            <p>Пользователей нет.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="tab-panel" id="tab2">
+                        <form method="post" class="my-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="create_news">
+                            <div class="form-group">
+                                <label>Заголовок</label>
+                                <input type="text" name="heading" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Полный текст</label>
+                                <textarea name="full_text" class="form-input" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Фотографии</label>
+                                <input type="file" name="photos" class="form-input" multiple>
+                            </div>
+                            <button class="my-btn form-button" type="submit">Добавить</button>
+                        </form>
+                    </div>
+
+                    <div class="tab-panel" id="tab3">
+                        <form method="post" class="my-form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="form_type" value="create_notes">
+                            <div class="form-group">
+                                <label>Название</label>
+                                <input type="text" name="heading" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Отделение</label>
+                                <select name="department" class="my-select" required>
+                                    <option value="piano">Фортепиано</option>
+                                    <option value="guitar">Гитара</option>
+                                    <option value="vocal">Вокальное</option>
+                                    <option value="accordion">Баян</option>
+                                    <option value="balalaika">Домра</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Класс</label>
+                                <select name="class_number" class="my-select" required>
+                                    {% for c in classes %}
+                                    <option value="{{ c }}">{{ c }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Файл</label>
+                                <input type="file" name="file" class="form-input" required>
+                            </div>
+                            <button class="my-btn form-button" type="submit">Добавить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+    tabs.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const tabId = this.dataset.tab;
+            tabs.forEach(b => b.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        });
+    });
+});
+
+var roleEl = document.getElementById('role');
+if (roleEl) {
+    roleEl.addEventListener('change', function() {
+        var role = this.value;
+        var profileFields = document.getElementById('profile-fields');
+        var ageField = document.getElementById('age-field');
+        var experienceField = document.getElementById('experience-field');
+        var teacherField = document.getElementById('teacher-field');
+        var classField = document.getElementById('class-field');
+        if (role === 'teacher' || role === 'student') {
+            profileFields.style.display = 'block';
+            if (role === 'teacher') {
+                ageField.style.display = 'block';
+                experienceField.style.display = 'block';
+                teacherField.style.display = 'none';
+                classField.style.display = 'none';
+            } else {
+                ageField.style.display = 'none';
+                experienceField.style.display = 'none';
+                teacherField.style.display = 'block';
+                classField.style.display = 'block';
+            }
+        } else {
+            profileFields.style.display = 'none';
+        }
+    });
+}
+
+function editUser(userId, username, role, teacherName, studentName, age, experience, teacherDept, studentDept, classNumber, studentTeacherId) {
+    document.getElementById('form-type').value = 'update_user';
+    document.getElementById('user-id').value = userId;
+    document.getElementById('username').value = username;
+    document.getElementById('role').value = role;
+    document.getElementById('password').required = false;
+    document.getElementById('password').value = '';
+    if (role === 'teacher') {
+        document.getElementById('full_name').value = teacherName;
+        document.getElementById('age').value = age;
+        document.getElementById('experience').value = experience;
+        document.getElementById('department').value = teacherDept;
+    } else if (role === 'student') {
+        document.getElementById('full_name').value = studentName;
+        document.getElementById('department').value = studentDept;
+        document.getElementById('class_number').value = classNumber;
+        document.getElementById('teacher_id').value = studentTeacherId;
+    }
+    document.getElementById('btn-save').style.display = 'inline-block';
+    document.getElementById('btn-delete').style.display = 'inline-block';
+    document.getElementById('role').dispatchEvent(new Event('change'));
+}
+
+function submitForm(formType) {
+    document.getElementById('form-type').value = formType;
+    if (formType === 'create_user') {
+        document.getElementById('password').required = true;
+    }
+    document.getElementById('user-form').submit();
+}
+function confirmDeleteUser() {
+    if (confirm('Удалить пользователя?')) {
+        submitForm('delete_user');
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.headline{
+    display: flex;
+    padding: 2vw;
+    justify-content: space-between;
+    width: 80vw;
+    align-items: center;
+    
+}
+.filters{
+    display: flex;
+    gap: 5vw;
+    white-space: no-wrap;
+}
+
+.note-cards{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 85vw;
+    row-gap: 1vw;
+}
+
+.note-card{
+    padding: 1.5vw;
+    border-radius: 1vw;
+    background-color: var(--white);
+    width: 25vw;
+    min-width: 40vw;
+    height: 6vw;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.note-card:hover{
+    transform: scale(1.02);
+}
+.name-author{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    font-size: 1.5rem;
+}
+.class-depart{
+    display: flex;
+    flex-direction:column;
+    justify-content: space-between;
+    text-align: right;
+}
+.add-info{
+    font-style: italic;
+}

@@ -1,0 +1,54 @@
+.panel-container {
+    display: flex;
+    gap: 2vw;
+    width: 80vw;
+    padding: 2vw;
+    background: var(--white);
+    border-radius: 1vw;
+    margin: auto;
+}
+
+.panel-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    width: 15vw;
+    flex-shrink: 0;
+}
+
+.tab-btn {
+    padding: 1vw 1.5vw;
+    background: white;
+    border-radius: 0.5vw;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    text-align: left;
+    transition: all 0.3s ease;
+    font-family: 'Century Gothic';
+}
+
+.tab-btn:hover {
+    transform: scale(1.05);
+}
+
+.tab-btn.active {
+    background: var(--beige);
+    transform: translateX(0.5vw);
+}
+
+.tabs-content {
+    flex: 1;
+    background: white;
+    border-radius: 1vw;
+    overflow: hidden;
+}
+
+.tab-panel {
+    display: none;
+    padding: 2vw;
+}
+
+.tab-panel.active {
+    display: block;
+}

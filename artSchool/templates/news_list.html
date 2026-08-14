@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'news.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main">
+    <div class="headline">
+        <h2>НОВОСТИ</h2>
+        <div class="filter">
+            <select id="sort" name="sort" onchange="location.href='?ordering='+this.value">
+                <option value="-date" {% if ordering == '-date' %}selected{% endif %}>Сначала новые</option>
+                <option value="date" {% if ordering == 'date' %}selected{% endif %}>Сначала старые</option>
+            </select>
+        </div>
+    </div>
+    <div class="news-wrapper">
+        {% for news in news_list %}
+            <div class="new-card">
+                {% if news.photos.all.0 %}
+                    <img src="{{ news.photos.all.0.photo.url }}" alt="">
+                {% else %}
+                    <img src="{% static 'images/phtoo.png' %}" alt="">
+                {% endif %}
+                <div class="new-card-content">
+                    <h3>{{ news.heading }}</h3>
+                    <div class="new-detail">
+                        <p class="new-date">{{ news.date|date:"d.m.y" }}</p>
+                        <a href="{% url 'news-detail-page' news.id %}" class="read-more">Читать далее</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>Новостей пока нет.</p>
+        {% endfor %}
+    </div>
+    {% if news_list.paginator.num_pages > 1 %}
+        <div class="pagination">
+            {% if news_list.has_previous %}
+                <a href="?page={{ news_list.previous_page_number }}&ordering={{ ordering }}">← Назад</a>
+            {% endif %}
+            
+            {% for num in news_list.paginator.page_range %}
+                {% if num == news_list.number %}
+                    <span class="current-page">{{ num }}</span>
+                {% else %}
+                    <a href="?page={{ num }}&ordering={{ ordering }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+            
+            {% if news_list.has_next %}
+                <a href="?page={{ news_list.next_page_number }}&ordering={{ ordering }}">Вперёд →</a>
+            {% endif %}
+        </div>
+        {% endif %}
+</main>
+{% endblock %}

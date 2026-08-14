@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Детская школа искусств с.Домна</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="header-nav">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="{% url 'home' %}">Главная</a>
+                </li>
+                <div class="main-items">
+                    <li class="menu-item">
+                        <a href="{% url 'school-info' %}">Сведения об ОО</a>
+                    </li>
+                    <li class="menu-item">
+                        <p class="dropdown-btn">О школе</p>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-item">
+                                <a href="{% url 'news-list-page' %}" class="dropdown-item">Новости</a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="{% url 'departments' %}" class="dropdown-item">Отделения</a>
+                            </li>
+                            <li class="dropdown-item">
+                                <a href="{% url 'for-parents' %}" class="dropdown-item">Поступающим</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item"><a href="{% url 'notes-list-page' %}">Ноты</a></li>
+                </div>
+                <li class="menu-item">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile-page' %}">Профиль</a>
+                    {% else %}
+                        <a href="{% url 'login-page' %}">Профиль</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <a href="{% url 'school-info' %}">Сведения об организации</a>
+            <a href="{% url 'notes-list-page' %}">Библиотека нот</a>
+            <a href="{% url 'news-list-page' %}">Новости</a>
+            <a href="{% url 'for-parents' %}">Поступающим и родителям</a>
+        </div>
+        <div class="documents">
+            <h4>ДОКУМЕНТЫ</h4>
+            <p>ИНН: 3357392847</p>
+            <p>ИНН: 3357392847</p>
+            <p>ИНН: 3357392847</p>
+            <p>ИНН: 3357392847</p>
+        </div>
+        <div class="add-links">
+            <h4>Полезные ссылки</h4>
+            <p>sdjflsdjfkls</p>
+            <p>sdjflsdjfkls</p>
+            <p>sdjflsdjfkls</p>
+        </div>
+        <div class="social">
+            <h4>Наши соц.сети</h4>
+            <div class="social-links">
+                <div class="social-link">
+                    <a href=""><img src="{% static 'images/tg.png' %}" alt=""></a>
+                </div>
+                <div class="social-link">
+                    <a href=""><img src="{% static 'images/max.png' %}" alt=""></a>
+                </div>
+                <div class="social-link">
+                    <a href=""><img src="{% static 'images/vk.png' %}" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
