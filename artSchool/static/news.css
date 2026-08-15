@@ -11,6 +11,16 @@
     align-items: center;
     
 }
+/* filter */
+.news-filter{
+    background-color: var(--white);
+    border: none;
+    border-radius: 1vw;
+    padding: 0.5vw;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 15vw;
+}
 
 
 .news-wrapper{
@@ -18,6 +28,7 @@
     grid-template-columns: repeat(3, 1fr);
     column-gap: 3vw;
     row-gap: 3vw;
+    padding-bottom: 3vw;
 }
 .new-card{
     position: relative;
@@ -39,7 +50,7 @@
     width: 100%;
     height: 40%;
     padding: 1vw;
-    background-color: rgba(247, 230, 140, 0.7);
+    background-color: var(--beige);
     display: flex;
     flex-direction: column;
     gap: 0.5vw;
@@ -52,7 +63,75 @@
 .new-detail{
     display: flex;
     justify-content: space-between;
+
 }
 .read-more:hover{
     text-decoration: underline;
+}
+.read-more{
+    color: black;
+}
+
+/* пагинация */
+.pagination{
+    padding-bottom: 3vw;
+    display: flex;
+    gap: 1vw;
+}
+.pag-link{
+    background-color: var(--beige);
+    padding: 0.5vw;
+    font-size: 1.5rem;
+    border-radius: 0.5vw;
+    font-size: 'Century Gothic';
+    text-decoration: none;
+    color: black;
+}
+.pag-link-cur{
+    background-color: var(--white);
+    padding: 0.5vw;
+    font-size: 1.5rem;
+    border-radius: 0.5vw;
+    font-size: 'Century Gothic';
+    text-decoration: none;
+    color: black;
+}
+
+/* ПЛАНШЕТ */
+@media (max-width: 1024px) {
+    .news-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .new-card {
+        width: 38vw;
+    }
+
+    .headline {
+        width: 90vw;
+    }
+}
+
+/* МОБИЛЬНЫЕ */
+@media (max-width: 600px) {
+    .headline {
+        flex-direction: column;
+        gap: 3vw;
+    }
+
+    .news-filter {
+        width: 40vw;
+    }
+
+    .news-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .new-card {
+        width: 80vw;
+    }
+
+    .new-card-content {
+        font-size: 1.4rem;
+    }
 }

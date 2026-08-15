@@ -2,9 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth import logout as auth_logout
+from adminFunc.models import News
 
 def home_page(request):
-    return render(request, 'home.html')
+    latest_news = News.objects.all().order_by('-date')[:6]
+    return render(request, 'home.html', {'news_list': latest_news})
 
 def login_page(request):
     if request.user.is_authenticated:

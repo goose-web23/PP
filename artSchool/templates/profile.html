@@ -180,7 +180,7 @@
             <h2>Профиль администратора</h2>
             <div class="profile-info">
                 <div class="first-column">
-                    <p>Вы вошли как:<span class="username">{{ user.username }}</span></p>
+                    <p>Вы вошли как: <span class="username">{{ user.username }}</span></p>
                     <a href="{% url 'logout-page' %}" class="logout">Выйти</a>
                 </div>
                 <div class="second-column">
@@ -218,7 +218,7 @@
                                     <option value="admin">Админ</option>
                                 </select>
                             </div>
-                            <div id="profile-fields" style="display:none;">
+                            <div class="profile-fields" id="profile-fields" style="display:none;">
                                 <div class="form-group">
                                     <label>Полное имя</label>
                                     <input type="text" name="full_name" id="full_name" class="form-input" required>
@@ -257,9 +257,11 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="buttons">
                             <button type="button" onclick="submitForm('create_user')" class="my-btn form-button">Добавить</button>
                             <button type="button" onclick="submitForm('update_user')" id="btn-save" class="my-btn form-button" style="display:none;">Сохранить</button>
                             <button type="button" onclick="confirmDeleteUser()" id="btn-delete" class="my-btn form-button" style="display:none;">Удалить</button>
+                            </div>
                         </form>
 
                         <div class="users-container">

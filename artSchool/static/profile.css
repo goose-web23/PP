@@ -4,7 +4,7 @@
     align-items: center;
     width: 90vw;
     gap: 1vw;
-    margin-top: 2vw;
+    padding-top: 2vw;
 }
 .profile-info{
     display: flex;
@@ -27,6 +27,8 @@
     padding: 0.5vw;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-decoration: none;
+    color: black;
 }
 .logout:hover{
     transform: scale(1.05);
@@ -134,6 +136,7 @@
     display: flex;
     flex-direction: column;
     gap: 1vw;
+    margin-top: 2vw;
 }
 .user{
     display: flex;
@@ -145,11 +148,22 @@
     font-size: 1.3rem;
     cursor: pointer;
 }
-
 .my-form{
-    display: grid;
-    grid-template-columns: repeat(2, 50%);
-    row-gap: 1.5vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+.profile-fields{
+    display: flex;
+    flex-direction: column;
+    gap: 1vw !important;
+}
+#profile-fields .form-group {
+    margin-bottom: 1vw;
+}
+.buttons{
+    display: flex;
+    gap: 2vw;
 }
 .form-group label{
     margin-right: 1vw;
@@ -172,4 +186,81 @@
     font-family: 'Century Gothic';
 }
 
-/* ДЛЯ АДМИНА */
+/* ПЛАНШЕТ */
+@media (max-width: 1024px) {
+    .profile-info {
+        width: 85vw;
+    }
+
+    .panel-container {
+        width: 90vw;
+        flex-direction: column;
+    }
+
+    .panel-tabs {
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .tab-btn {
+        flex: 1;
+        min-width: 30%;
+        text-align: center;
+    }
+
+    .student {
+        width: 35vw;
+        max-width: 35vw;
+    }
+
+    .students-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* МОБИЛЬНЫЕ */
+@media (max-width: 600px) {
+    .profile-info {
+        flex-direction: column;
+        width: 90vw;
+        gap: 3vw;
+    }
+
+    .panel-container {
+        padding: 3vw;
+    }
+
+    .panel-tabs {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        width: 100%;
+    }
+
+    .student {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .diploma-container {
+        grid-template-columns: 1fr;
+    }
+
+    .diploma {
+        width: 60vw;
+        max-width: 60vw;
+    }
+
+    .mark {
+        flex-direction: column;
+        gap: 1vw;
+        align-items: flex-start;
+    }
+
+    .form-input,
+    .my-select {
+        min-width: 70vw;
+    }
+}

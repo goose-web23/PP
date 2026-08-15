@@ -17,7 +17,7 @@
             {% else %}
                 <a href="{% url 'login-page' %}" class="primary-btn my-btn">Личный кабинет</a>
             {% endif %}
-            <a class="secondary-btn my-btn">Контакты</a>
+            <a href="{% url 'for-parents' %}" class="secondary-btn my-btn">Поступить</a>
         </div>
     </div>
 </section>
@@ -26,67 +26,25 @@
     <div class="news">
         <h2>НОВОСТИ</h2>
         <div class="news-wrapper">
+        {% for news in news_list %}
             <div class="new-card">
-                <img src="{% static 'images/phtoo.png' %}" alt="">
+                {% if news.photos.all.0 %}
+                    <img src="{{ news.photos.all.0.photo.url }}" alt="">
+                {% else %}
+                    <img src="{% static 'images/phtoo.png' %}" alt="">
+                {% endif %}
                 <div class="new-card-content">
-                    <h3>Ученики приняли участие в фестивале Степь</h3>
+                    <h3>{{ news.heading }}</h3>
                     <div class="new-detail">
-                        <p class="new-date">06.07.26</p>
-                        <p class="read-more">Читать далее</p>
+                        <p class="new-date">{{ news.date|date:"d.m.y" }}</p>
+                        <a href="{% url 'news-detail-page' news.id %}" class="read-more">Читать далее</a>
                     </div>
                 </div>
             </div>
-            <div class="new-card">
-                <img src="{% static 'images/phtoo.png' %}" alt="">
-                <div class="new-card-content">
-                    <h3>Ученики приняли участие в фестивале Степь</h3>
-                    <div class="new-detail">
-                        <p class="new-date">06.07.26</p>
-                        <p class="read-more">Читать далее</p>
-                    </div>
-                </div>
-            </div>
-            <div class="new-card">
-                <img src="{% static 'images/phtoo.png' %}" alt="">
-                <div class="new-card-content">
-                    <h3>Ученики приняли участие в фестивале Степь</h3>
-                    <div class="new-detail">
-                        <p class="new-date">06.07.26</p>
-                        <p class="read-more">Читать далее</p>
-                    </div>
-                </div>
-            </div>
-            <div class="new-card">
-                <img src="{% static 'images/phtoo.png' %}" alt="">
-                <div class="new-card-content">
-                    <h3>Ученики приняли участие в фестивале Степь</h3>
-                    <div class="new-detail">
-                        <p class="new-date">06.07.26</p>
-                        <p class="read-more">Читать далее</p>
-                    </div>
-                </div>
-            </div>
-            <div class="new-card">
-                <img src="{% static 'images/phtoo.png' %}" alt="">
-                <div class="new-card-content">
-                    <h3>Ученики приняли участие в фестивале Степь</h3>
-                    <div class="new-detail">
-                        <p class="new-date">06.07.26</p>
-                        <p class="read-more">Читать далее</p>
-                    </div>
-                </div>
-            </div>
-            <div class="new-card">
-                <img src="{% static 'images/phtoo.png' %}" alt="">
-                <div class="new-card-content">
-                    <h3>Ученики приняли участие в фестивале Степь</h3>
-                    <div class="new-detail">
-                        <p class="new-date">06.07.26</p>
-                        <p class="read-more">Читать далее</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% empty %}
+            <p>Новостей пока нет.</p>
+        {% endfor %}
+    </div>
         <a class="secondary-btn my-btn" href="{% url 'news-list-page' %}">Смотреть больше</a>
     </div>
     
@@ -104,28 +62,66 @@
     <div class="depart-container">
         <h2>Художественное отделение</h2>
         <div class="departments">
-            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/гитара.svg' %}" alt=""></div><p>Лепка</p></div>
-            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/домра.svg' %}" alt=""></div><p>Скульптура</p></div>
-            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/пианино.svg' %}" alt=""></div><p>Живопись</p></div>
-            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/микро.svg' %}" alt=""></div><p>ДПИ</p></div>
-            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/баян.svg' %}" alt=""></div><p>Композиция</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/лепка.png' %}" alt=""></div><p>Лепка</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/скульптура.png' %}" alt=""></div><p>Скульптура</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/живопись.png' %}" alt=""></div><p>Живопись</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/дпи.png' %}" alt=""></div><p>ДПИ</p></div>
+            <div class="depart-item"><div class="depart-icon"><img src="{% static 'images/композиция худ.png' %}" alt=""></div><p>Композиция</p></div>
         </div>
     </div>
 
     <div class="faq-container">
         <h2>ЧАСТЫЕ ВОПРОСЫ</h2>
         <div class="faq-item">
-            <div class="faq-question"><h3>Как сделать заказ?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
-            <div class="faq-answer"><p>Для оформления заказа перейдите в каталог, выберите товар и нажмите кнопку "Купить".</p></div>
+            <div class="faq-question"><h3>В каком возрасте лучше начать обучение в школе искусств?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
+            <div class="faq-answer"><p>Cрок обучения 8 лет - дети до 9 лет.Срок обучения 5 лет - до 12 лет. Срок обучения 3-4 года - дети с 6 до 17 лет</p></div>
         </div>
         <div class="faq-item">
-            <div class="faq-question"><h3>Какие способы оплаты доступны?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
-            <div class="faq-answer"><p>Мы принимаем оплату банковскими картами, электронными кошельками и наличными при получении.</p></div>
+            <div class="faq-question"><h3>Можно ли выборочно ходить на предметы?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
+            <div class="faq-answer"><p>Обучение в школе искусств – это комплексное обучение. Выборочно посещать предметы нельзя. Имея неуспеваемость, учащийся отчисляется или остаётся на повторное обучение.</p></div>
         </div>
         <div class="faq-item">
-            <div class="faq-question"><h3>Как долго длится доставка?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
-            <div class="faq-answer"><p>Срок доставки составляет от 2 до 5 рабочих дней в зависимости от вашего региона.</p></div>
+            <div class="faq-question"><h3>Какой документ выдается ребенку по окончании школы искусств?</h3><button class="faq-toggle"><span class="faq-icon">▼</span></button></div>
+            <div class="faq-answer"><p>После освоения общеразвивающей программы - свидетельство об освоении с печатью школы, форма разрабатывается учреждением самостоятельно. После освоение  предпрофессиональныой программы - свидетельство, установленное государственными федеральными требованиями.</p></div>
         </div>
     </div>
+
+    <section id="contacts">
+        <h2>КОНТАКТЫ</h2>
+        <div class="contacts-wrapper">
+            <p>Почтовый адрес: 672521 Забайкальский край, Читинский район, с. Домна ул.Больничная, 4а</p>
+            <p>Телефон: 8 914 441 07 16</p>
+            <p>email: elenatols@mail.ru</p>
+            <p>График работы: понедельник-суббота с 8-00 до 20-00, выходной – воскресенье</p>
+        </div>
+        
+    </section>
+    
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const toggleBtn = item.querySelector('.faq-toggle');
+        const question = item.querySelector('.faq-question');
+
+        function toggleFaq() {
+            item.classList.toggle('active');
+        }
+
+        toggleBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleFaq();
+        });
+
+        question.addEventListener('click', function(e) {
+            if (!e.target.closest('.faq-toggle')) {
+                toggleFaq();
+            }
+        });
+    });
+});
+</script>
 {% endblock %}

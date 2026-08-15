@@ -10,7 +10,7 @@
     <div class="headline">
         <h2>НОВОСТИ</h2>
         <div class="filter">
-            <select id="sort" name="sort" onchange="location.href='?ordering='+this.value">
+            <select class="news-filter" id="sort" name="sort" onchange="location.href='?ordering='+this.value">
                 <option value="-date" {% if ordering == '-date' %}selected{% endif %}>Сначала новые</option>
                 <option value="date" {% if ordering == 'date' %}selected{% endif %}>Сначала старые</option>
             </select>
@@ -39,19 +39,19 @@
     {% if news_list.paginator.num_pages > 1 %}
         <div class="pagination">
             {% if news_list.has_previous %}
-                <a href="?page={{ news_list.previous_page_number }}&ordering={{ ordering }}">← Назад</a>
+                <a class="pag-link" href="?page={{ news_list.previous_page_number }}&ordering={{ ordering }}">←</a>
             {% endif %}
             
             {% for num in news_list.paginator.page_range %}
                 {% if num == news_list.number %}
-                    <span class="current-page">{{ num }}</span>
+                    <span class="pag-link-cur current-page">{{ num }}</span>
                 {% else %}
-                    <a href="?page={{ num }}&ordering={{ ordering }}">{{ num }}</a>
+                    <a class="pag-link" href="?page={{ num }}&ordering={{ ordering }}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
             
             {% if news_list.has_next %}
-                <a href="?page={{ news_list.next_page_number }}&ordering={{ ordering }}">Вперёд →</a>
+                <a class="pag-link" href="?page={{ news_list.next_page_number }}&ordering={{ ordering }}">→</a>
             {% endif %}
         </div>
         {% endif %}

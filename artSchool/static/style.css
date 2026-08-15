@@ -175,6 +175,13 @@ footer h4{
     text-decoration: none;
     color: black;
 }
+.add-links{
+    display: flex !important;
+    flex-direction: column !important;
+}
+.add-links a{
+    color: black;
+}
 .social{
     display: flex;
     flex-direction: column;
@@ -191,3 +198,111 @@ footer h4{
     cursor: pointer;
 }
 
+/* ========== ПЛАНШЕТ ========== */
+@media (max-width: 1024px) {
+    html {
+        font-size: 55%;
+    }
+
+    header {
+        padding: 3%;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        gap: 2vw;
+    }
+
+    .main-items {
+        width: 45%;
+    }
+
+    .main {
+        margin-top: 10%;
+    }
+
+    footer {
+        flex-wrap: wrap;
+        gap: 3vw;
+    }
+
+    .footer-links,
+    .documents,
+    .add-links,
+    .social {
+        min-width: 40%;
+    }
+}
+/* ========== МОБИЛЬНЫЕ ========== */
+@media (max-width: 600px) {
+    html {
+        font-size: 50%;
+    }
+
+    header {
+        padding: 4%;
+        position: static;
+    }
+
+    .menu {
+        flex-direction: column;
+        gap: 3vw;
+    }
+
+    .main-items {
+        width: 100%;
+        flex-direction: column;
+        gap: 2vw;
+    }
+
+    .menu-item {
+        display: block;
+        text-align: center;
+    }
+
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: none;
+        margin-top: 1vw;
+    }
+
+    .menu-item:hover .dropdown-menu {
+        display: block;
+    }
+
+    .main {
+        margin-top: 0;
+        min-height: auto;
+        padding-bottom: 5vw;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 4vw;
+        padding: 5vw;
+    }
+
+    .footer-links,
+    .documents,
+    .add-links,
+    .social {
+        min-width: 100%;
+    }
+
+    .social-link img {
+        width: 10vw;
+    }
+
+    .my-btn {
+        min-width: 40vw;
+        max-width: 60vw;
+        font-size: 1.6rem;
+    }
+}

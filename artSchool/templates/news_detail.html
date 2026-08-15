@@ -7,21 +7,26 @@
 
 {% block content %}
 <section class="main">
+    
     {% if is_admin %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="update">
-        <input type="text" name="heading" value="{{ news.heading }}" class="form-input" required>
-        <textarea name="full_text" class="form-input">{{ news.full_text }}</textarea>
-        <input type="file" name="photos" multiple>
-        <button type="submit" class="my-btn form-button">Сохранить</button>
-    </form>
-    <form method="post" onsubmit="return confirm('Удалить новость?');">
-        {% csrf_token %}
-        <input type="hidden" name="action" value="delete">
-        <button type="submit" class="my-btn form-button">Удалить</button>
-    </form>
+    <h2>Редактирование новости</h2>
+    <div class="form-container">
+        <form class="my-form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="update">
+            <input type="text" name="heading" value="{{ news.heading }}" class="form-input" required>
+            <textarea name="full_text" class="form-input">{{ news.full_text }}</textarea>
+            <input class="form-input" type="file" name="photos" multiple>
+            <button type="submit" class="my-btn form-button">Сохранить</button>
+        </form>
+        <form method="post" onsubmit="return confirm('Удалить новость?');">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="delete">
+            <button type="submit" class="my-btn form-button">Удалить</button>
+        </form>
+    </div>
 {% else %}
+<div class="new_container">
     <h2>{{ news.heading }}</h2>
     <p>{{ news.full_text|linebreaks }}</p>
     <div class="new_photos">
@@ -29,6 +34,7 @@
         <img class="new_photo" src="{{ photo.photo.url }}" alt="">
         {% endfor %}
     </div>
+</div>
 {% endif %}
 </section>
 {% endblock %}

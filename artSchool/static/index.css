@@ -1,6 +1,6 @@
 /* CONTENT */
 .promo{
-    height: 100vh;
+    height: 90vh;
     display: flex;
     align-items: center;
     padding-top: 5%;
@@ -37,7 +37,7 @@
     flex-direction: column;
     align-items: center;
     gap: 2vw;
-    margin-top: 2vw;
+    margin-top: 4vw;
 }
 .news-wrapper{
     display: grid;
@@ -64,8 +64,7 @@
     width: 100%;
     height: 40%;
     padding: 1vw;
-    background-color: rgba(247, 230, 140, 0.7);
-    display: flex;
+    background-color: var(--beige);
     flex-direction: column;
     gap: 0.5vw;
     font-size: 1.3rem;
@@ -116,7 +115,22 @@
 .depart-icon img{
     min-width: 100%;
 }
-
+/* contacts */
+#contacts{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    align-items: center;
+    margin-top: 2vw;
+    padding-bottom: 2vw;
+}
+.contacts-wrapper{
+    font-size: 1.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
 
 .faq-container {
     padding: 2vw;
@@ -183,7 +197,8 @@
 }
 
 .faq-item.active .faq-answer {
-    max-height: 20vh; 
+    min-height: 10vh;
+    max-height: 30vh; 
 }
 
 .faq-answer p {
@@ -193,4 +208,124 @@
     line-height: 1.6;
     font-size: 1.5rem;
     border-top: 0.2vw solid #eee;
+}
+
+/* ========== ПЛАНШЕТ ========== */
+@media (max-width: 1024px) {
+    .promo {
+        flex-direction: column;
+        height: auto;
+        padding-top: 10%;
+        gap: 3vw;
+    }
+
+    .promo-logo {
+        width: 60vw;
+    }
+
+    .promo-content {
+        width: 80vw;
+    }
+
+    .promo-content h1 {
+        font-size: 2.8rem;
+    }
+
+    .promo-content p {
+        font-size: 1.6rem;
+    }
+
+    .news-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 4vw;
+        row-gap: 4vw;
+    }
+
+    .new-card {
+        width: 38vw;
+    }
+
+    .departments {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 4vw;
+    }
+
+    .depart-icon {
+        width: 15vw;
+        height: 15vw;
+    }
+
+    .faq-item {
+        max-width: 70vw;
+    }
+}
+
+/* ========== МОБИЛЬНЫЕ ========== */
+@media (max-width: 600px) {
+    .promo {
+        padding-top: 5%;
+        gap: 5vw;
+    }
+
+    .promo-logo {
+        width: 80vw;
+    }
+
+    .promo-content {
+        width: 90vw;
+    }
+
+    .promo-content h1 {
+        font-size: 2.4rem;
+    }
+
+    .promo-content p {
+        font-size: 1.5rem;
+    }
+
+    .promo-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 3vw;
+    }
+
+    .news-wrapper {
+        grid-template-columns: 1fr;
+        row-gap: 5vw;
+    }
+
+    .new-card {
+        width: 80vw;
+    }
+
+    .new-card-content {
+        font-size: 1.4rem;
+    }
+
+    .departments {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .depart-item {
+        font-size: 1.6rem;
+    }
+
+    .depart-icon {
+        width: 25vw;
+        height: 25vw;
+    }
+
+    .faq-item {
+        max-width: 90vw;
+    }
+
+    .faq-question h3 {
+        font-size: 1.4rem;
+    }
+
+    .faq-answer p {
+        font-size: 1.3rem;
+    }
 }

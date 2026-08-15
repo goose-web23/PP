@@ -16,7 +16,9 @@
     gap: 5vw;
     white-space: no-wrap;
 }
-
+.note-wrapper{
+    margin-top: 3vw;
+}
 .note-cards{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -45,13 +47,147 @@
     justify-content: space-between;
     text-align: left;
     font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
 }
 .class-depart{
     display: flex;
     flex-direction:column;
     justify-content: space-between;
     text-align: right;
+    text-decoration: none;
 }
 .add-info{
     font-style: italic;
+    text-decoration: none;
+    color: black;
+}
+
+/* pagination */
+.pagination{
+    padding-bottom: 3vw;
+    display: flex;
+    gap: 1vw;
+    padding-top: 3vw;
+}
+.pag-link{
+    background-color: var(--beige);
+    padding: 0.5vw;
+    font-size: 1.5rem;
+    border-radius: 0.5vw;
+    font-size: 'Century Gothic';
+    text-decoration: none;
+    color: black;
+}
+.pag-link-cur{
+    background-color: var(--white);
+    padding: 0.5vw;
+    font-size: 1.5rem;
+    border-radius: 0.5vw;
+    font-size: 'Century Gothic';
+    text-decoration: none;
+    color: black;
+}
+
+/* filter */
+.notes-filter{
+    background-color: var(--white);
+    border: none;
+    border-radius: 1vw;
+    padding: 0.5vw;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 15vw;
+}
+.my-select{
+      background-color: var(--white);
+    border: none;
+    border-radius: 1vw;
+    padding: 0.5vw;
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 15vw;
+}
+
+
+/*  */
+
+/* admin */
+.form-input{
+    border: 0.2vw solid var(--beige);
+    border-radius: 0.5vw;
+    padding: 0.2vw 0.5vw;
+    min-width: 20vw;
+    font-family: 'Century Gothic';
+}
+.my-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vw;
+}
+.form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw; 
+    margin-top: 2vw;  
+}
+
+/*  */
+.note-info-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    font-size: 1.5rem;
+}
+
+/* ПЛАНШЕТ */
+@media (max-width: 1024px) {
+    .note-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .note-card {
+        width: 70vw;
+        min-width: 70vw;
+    }
+
+    .headline {
+        width: 90vw;
+    }
+}
+
+/* МОБИЛЬНЫЕ */
+@media (max-width: 600px) {
+    .headline {
+        flex-direction: column;
+        gap: 3vw;
+    }
+
+    .filters {
+        flex-direction: column;
+        gap: 2vw;
+    }
+
+    .note-cards {
+        width: 95vw;
+    }
+
+    .note-card {
+        width: 90vw;
+        min-width: 90vw;
+        height: auto;
+        padding: 3vw;
+    }
+
+    .my-select,
+    .notes-filter {
+        width: 40vw;
+    }
+
+    .form-input {
+        min-width: 70vw;
+    }
 }

@@ -13,7 +13,7 @@
             <div class="filters">
                 <div class="filter">
                     <label for="depart">Отделение</label>
-                    <select id="depart" name="department" onchange="this.form.submit()">
+                    <select class="notes-filter" id="depart" name="department" onchange="this.form.submit()">
                         <option value="">Все</option>
                         <option value="piano" {% if selected_department == 'piano' %}selected{% endif %}>Фортепиано</option>
                         <option value="guitar" {% if selected_department == 'guitar' %}selected{% endif %}>Гитара</option>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="filter">
                     <label for="class">Класс</label>
-                    <select id="class" name="class_number" onchange="this.form.submit()">
+                    <select class="notes-filter" id="class" name="class_number" onchange="this.form.submit()">
                         <option value="">Все</option>
                         {% for c in classes %}
                         <option value="{{ c }}" {% if selected_class == c|stringformat:"s" %}selected{% endif %}>{{ c }}</option>
@@ -54,17 +54,17 @@
     {% if notes.paginator.num_pages > 1 %}
     <div class="pagination">
         {% if notes.has_previous %}
-            <a href="?page={{ notes.previous_page_number }}&department={{ selected_department }}&class_number={{ selected_class }}">← Назад</a>
+            <a class="pag-link" href="?page={{ notes.previous_page_number }}&department={{ selected_department }}&class_number={{ selected_class }}">← Назад</a>
         {% endif %}
         {% for num in notes.paginator.page_range %}
             {% if num == notes.number %}
-                <span class="current-page">{{ num }}</span>
+                <span class="pag-link-cur current-page">{{ num }}</span>
             {% else %}
-                <a href="?page={{ num }}&department={{ selected_department }}&class_number={{ selected_class }}">{{ num }}</a>
+                <a class="pag-link" href="?page={{ num }}&department={{ selected_department }}&class_number={{ selected_class }}">{{ num }}</a>
             {% endif %}
         {% endfor %}
         {% if notes.has_next %}
-            <a href="?page={{ notes.next_page_number }}&department={{ selected_department }}&class_number={{ selected_class }}">Вперёд →</a>
+            <a class="pag-link" href="?page={{ notes.next_page_number }}&department={{ selected_department }}&class_number={{ selected_class }}">Вперёд →</a>
         {% endif %}
     </div>
     {% endif %}
